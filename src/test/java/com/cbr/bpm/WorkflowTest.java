@@ -29,6 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
+// если хотим, чтобы работал Process Test Coverage, то нельзя наследоваться от AbstractProcessEngineRuleTest
 //public class WorkflowTest extends AbstractProcessEngineRuleTest {
 public class WorkflowTest {
 
