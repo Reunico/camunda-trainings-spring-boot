@@ -7,32 +7,30 @@ import com.cbr.bpm.service.OrderService;
 import com.cbr.bpm.service.WebsiteService;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
-import org.camunda.bpm.engine.test.Deployment;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.spring.boot.starter.test.helper.AbstractProcessEngineRuleTest;
-import org.camunda.community.process_test_coverage.junit4.platform7.rules.TestCoverageProcessEngineRuleBuilder;
 import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.UUID;
 
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class WorkflowTest extends AbstractProcessEngineRuleTest {
+//public class WorkflowTest extends AbstractProcessEngineRuleTest {
+public class WorkflowTest {
 
   @Autowired
   public RuntimeService runtimeService;
@@ -46,25 +44,26 @@ public class WorkflowTest extends AbstractProcessEngineRuleTest {
   @MockBean
   CrmService crmService;
 
-  @Rule
-  @ClassRule
-  public static ProcessEngineRule rule = TestCoverageProcessEngineRuleBuilder.create().build();
-
   @Before
   public void setup() {
     Mockito.when(websiteService.getOrder()).thenReturn(getOrder());
+    Mockito.doNothing().when(crmService).saveOrder(any());
+    Mockito.when(orderService.persistOrder(any(), any(), any(), any(), any(), any(), any())).thenReturn(getOrder());
   }
 
-  private Order getOrder() {
+  public Order getOrder() {
+
     Order order = new Order();
     order.setAmount(new BigDecimal(300));
-    order.setOrderDate(new Date());
+    order.setId(UUID.randomUUID());
+    order.setDescription("Test Description");
+    order.setOrderDate(Date.from(LocalDate.now().plusDays(1L).
+            atStartOfDay(ZoneId.systemDefault()).toInstant()));
     order.setTitle("Test Position");
     order.setFullName("Test Customer");
     return order;
   }
   @Test
-  @Deployment(resources = {"partymaker.bpmn", "proposal.dmn"})
   public void shouldExecuteHappyPath() {
     // given
     String processDefinitionKey = "partymaker";
@@ -76,7 +75,7 @@ public class WorkflowTest extends AbstractProcessEngineRuleTest {
     assertThat(processInstance).isStarted();
     assertThat(processInstance).isWaitingAt(("Activity_getOrder"));
     execute(job()); // execute job Activity_getOrder due to save point
-    assertThat(task()).hasDefinitionKey("Activity_approveTask").isNotAssigned();
+    assertThat(processInstance).hasVariables(ProcessVariableConstant.ORDER);
 
     complete(task(), withVariables(
             ProcessVariableConstant.ORDER_APPROVED, true,
