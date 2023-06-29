@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_011nknb" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.11.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <decision id="proposal" name="Подбор предложения">
+    <decisionTable id="DecisionTable_1a5rn8h">
+      <input id="Input_1" label="Amount" camunda:inputVariable="amount">
+        <inputExpression id="InputExpression_1" typeRef="double">
+          <text>order.amount</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Description" name="description" typeRef="string" />
+      <rule id="DecisionRule_1mggmj0">
+        <inputEntry id="UnaryTests_08nipz2">
+          <text>[0..100]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1niqpnj">
+          <text>"Ужин в ресторане"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ce7rt2">
+        <inputEntry id="UnaryTests_1wxztt8">
+          <text>[101..300]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13cmmav">
+          <text>"Речной круиз"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ikag88">
+        <inputEntry id="UnaryTests_0c2sp20">
+          <text>[301..500]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10n7eak">
+          <text>"Сафари"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11twuxq">
+        <inputEntry id="UnaryTests_0g4rmh6">
+          <text>[501..800]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cf0fka">
+          <text>"Посещение заповедника"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wxj3jn">
+        <inputEntry id="UnaryTests_01jmwkb">
+          <text>&gt;800</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01o05kb">
+          <text>"Морской круиз"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="proposal">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

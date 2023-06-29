@@ -1,7 +1,7 @@
 spring.datasource.url: jdbc:h2:file:./camunda-h2-database
 application:
   crmUrl: https://storage.yandexcloud.net/trainings-crm/application
-  websiteUrl: https://faker.reunico.com/faker/api/generatex?property=name.findName&property=name.title&property=random.number&property=finance.amount&property=address.countryCode&locale=ru
+  websiteUrl: https://faker.reunico.com/faker/api/generate?property=name.findName&property=name.title&property=random.number&property=finance.amount&property=address.countryCode&locale=ru
 camunda.bpm.admin-user:
   id: demo
   password: demo

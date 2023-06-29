@@ -12,6 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <camunda-bpm-process-test-coverage.version>1.0.3</camunda-bpm-process-test-coverage.version>
   </properties>
 
   <dependencyManagement>
@@ -88,6 +89,13 @@
       <artifactId>lombok</artifactId>
       <optional>true</optional>
     </dependency>
+
+<!--    <dependency>-->
+<!--      <groupId>org.camunda.bpm.extension</groupId>-->
+<!--      <artifactId>camunda-bpm-process-test-coverage-starter</artifactId>-->
+<!--      <version>${camunda-bpm-process-test-coverage.version}</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
   </dependencies>
 
   <build>
