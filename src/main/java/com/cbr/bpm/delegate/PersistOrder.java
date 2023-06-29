@@ -25,7 +25,10 @@ public class PersistOrder implements JavaDelegate {
                 (Order) delegateExecution.getVariable(ProcessVariableConstant.ORDER),
                 (String) delegateExecution.getVariable(ProcessVariableConstant.DESCRIPTION),
                 (String) delegateExecution.getVariable(ProcessVariableConstant.CONTRACTOR),
-                (Date) delegateExecution.getVariable(ProcessVariableConstant.ORDER_DATE)
+                (Date) delegateExecution.getVariable(ProcessVariableConstant.ORDER_DATE),
+                (String) delegateExecution.getVariable(ProcessVariableConstant.CUSTOMER_NAME),
+                (String) delegateExecution.getVariable(ProcessVariableConstant.TITLE),
+                (Long) delegateExecution.getVariable(ProcessVariableConstant.AMOUNT)
         );
 
         delegateExecution.setVariable(ProcessVariableConstant.ORDER, order);

@@ -18,6 +18,6 @@ public class CrmServiceImpl implements CrmService {
 
     @Override
     public void saveOrder(Order order) {
-        restTemplate.put(applicationProperties.getCrmUrl() + "/" + order.getNumber().toString(), order);
+        restTemplate.put(applicationProperties.getCrmUrl() + "/" + order.getId().toString(), order);
     }
 }
